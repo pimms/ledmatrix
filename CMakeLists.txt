@@ -13,5 +13,5 @@ file(GLOB_RECURSE HDR src/**.h)
 #target_link_libraries(stingray sfml-graphics sfml-window sfml-system)
 
 add_executable(ledmatrix ${SRC} ${HDR})
-set_property(TARGET ledmatrix PROPERTY CXX_STANDARD 20)
-target_compile_features(ledmatrix PRIVATE cxx_std_20)
+set_property(TARGET ledmatrix PROPERTY CXX_STANDARD 11)
+target_compile_features(ledmatrix PRIVATE cxx_std_11)
