@@ -15,6 +15,6 @@ public:
 
 private:
     volatile uint32_t* _gpio = nullptr;
-    volatile uint32_t* _gpioSetBits = nullptr;
-    volatile uint32_t* _gpioClearBits = nullptr;
+    volatile uint32_t* _gpioSet = nullptr;
+    volatile uint32_t* _gpioClr = nullptr;
 };

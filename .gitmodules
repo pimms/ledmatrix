@@ -1,0 +1,3 @@
+[submodule "renderlib/rpi-rbg-led-matrix"]
+	path = renderlib/rpi-rbg-led-matrix
+	url = https://github.com/hzeller/rpi-rgb-led-matrix
