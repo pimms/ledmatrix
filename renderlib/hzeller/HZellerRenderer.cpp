@@ -1,5 +1,4 @@
 #include "HZellerRenderer.h"
-#include "led-matrix.h"
 #include <stdexcept>
 
 std::unique_ptr<Renderer> Renderer::create()

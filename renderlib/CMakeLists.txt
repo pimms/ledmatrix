@@ -3,7 +3,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(renderlib LANGUAGES CXX)
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+if(1) #CMAKE_SYSTEM_NAME STREQUAL "Linux")
     message("📺 Using HZeller RPI RGB LED Matrix library")
     file(GLOB_RECURSE SRC 
         rpi-rgb-led-matrix/include/* 
@@ -21,4 +21,4 @@ endif()
 
 add_library(renderlib ${SRC})
 set(RENDERLIB_INCLUDE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include")
-include_directories(rpi-rgb-led-matrix/include/)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/rpi-rgb-led-matrix/include/)
