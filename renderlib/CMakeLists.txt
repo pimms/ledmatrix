@@ -1,13 +1,18 @@
 cmake_minimum_required(VERSION 3.7)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-project(renderlib LANGUAGES CXX)
+project(renderlib LANGUAGES C CXX)
 
-if(1) #CMAKE_SYSTEM_NAME STREQUAL "Linux")
+set(CMAKE_CXX_STANDARD          20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS        OFF)
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     message("📺 Using HZeller RPI RGB LED Matrix library")
     file(GLOB_RECURSE SRC 
         rpi-rgb-led-matrix/include/* 
-        rpi-rgb-led-matrix/lib/*
+        rpi-rgb-led-matrix/lib/**.cc
+        rpi-rgb-led-matrix/lib/**.c
         hzeller/**.h 
         hzeller/**.cpp
     )

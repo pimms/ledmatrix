@@ -1,5 +1,6 @@
 #include "HZellerRenderer.h"
 #include <stdexcept>
+#include <array>
 
 std::unique_ptr<Renderer> Renderer::create()
 {
