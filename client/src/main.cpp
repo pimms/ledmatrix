@@ -1,6 +1,7 @@
 #include "ClientSocket.h"
 #include <stdio.h>
 #include <thread>
+#include <array>
 
 struct Color
 {
@@ -22,7 +23,7 @@ int main(int argc, const char **argv)
     for (int i=0; i<32*64; i++) {
         buf[i] = Color { 255, 255, 255 };
         socket.send(buf.data(), sizeof(buf));
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        // std::this_thread::sleep_for(std::chrono::milliseconds(5));
     }
 
     return 0;
