@@ -47,9 +47,8 @@ void ServerSocket::receiveLoop()
         const ssize_t len = recvfrom(_socket, (void*)&buffer, BUFLEN, 0, (sockaddr*)&clientAddr, &clientLen);
         if (len < 0) {
             printf("failed to receive data\n");
-            continue;
+        } else {
+            _dataCallback(buffer, len);
         }
-        printf("received %ld bytes\n", len);
-        _dataCallback(buffer, len);
     }
 }

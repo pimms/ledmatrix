@@ -16,7 +16,7 @@ HZellerRenderer::HZellerRenderer()
     opts.cols = 64;
     opts.chain_length= 1;
     opts.parallel = 1;
-    opts.show_refresh_rate = true;
+    opts.show_refresh_rate = false;
     rgb_matrix::RuntimeOptions runtimeOpts{};
     _canvas = std::unique_ptr<rgb_matrix::RGBMatrix>{ rgb_matrix::RGBMatrix::CreateFromOptions(opts, {}) };
     if (!_canvas) {

@@ -28,6 +28,5 @@ void ClientSocket::send(const void* buf, size_t len)
     assert(_socket > 0);
     assert(buf);
     assert(len > 0 && len <= 8096);
-    printf("sending %ld bytes\n", len);
     sendto(_socket, (const void*)buf, len, 0, (const sockaddr*)&_addr, sizeof(_addr));
 }
