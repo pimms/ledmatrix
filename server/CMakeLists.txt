@@ -1,11 +1,10 @@
-cmake_minimum_required(VERSION 3.7)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
+cmake_minimum_required(VERSION 3.10)
 project(ledserver LANGUAGES C CXX)
 
-set(CMAKE_CXX_STANDARD          20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS        OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS   ON)
+set(CMAKE_CXX_STANDARD              20)
+set(CMAKE_CXX_STANDARD_REQUIRED     ON)
+set(CMAKE_CXX_EXTENSIONS            OFF)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     message("📺 Using HZeller RPI RGB LED Matrix library")
@@ -28,3 +27,6 @@ file(GLOB_RECURSE SRC src/**.h src/**.cpp)
 
 add_executable(ledserver ${RENDERSRC} ${SRC})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/rpi-rgb-led-matrix/include/)
+
+# Let the renderer-specific files find anything in src/
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)

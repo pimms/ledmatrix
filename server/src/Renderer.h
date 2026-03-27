@@ -6,10 +6,9 @@ struct Color
 {
     Color() { r = g = b = 0; }
     Color(uint8_t rr, uint8_t gg, uint8_t bb) :r(rr), g(gg), b(bb) {}
-
-    uint8_t r:8;
-    uint8_t g:8;
-    uint8_t b:8;
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
 };
 
 class Renderer

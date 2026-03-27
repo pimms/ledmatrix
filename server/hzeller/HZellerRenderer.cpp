@@ -18,7 +18,7 @@ HZellerRenderer::HZellerRenderer()
     opts.parallel = 1;
     opts.show_refresh_rate = true;
     rgb_matrix::RuntimeOptions runtimeOpts{};
-    _canvas = std::unique_ptr<rgb_matrix::Canvas>{ rgb_matrix::RGBMatrix::CreateFromOptions(opts, {}) };
+    _canvas = std::unique_ptr<rgb_matrix::RGBMatrix>{ rgb_matrix::RGBMatrix::CreateFromOptions(opts, {}) };
     if (!_canvas) {
         throw std::runtime_error("Failed to create canvas");
     }
