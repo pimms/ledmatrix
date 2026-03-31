@@ -1,9 +1,24 @@
 #include <stdio.h>
 #include "Renderer.h"
 #include "ServerSocket.h"
+#include <array>
+
+#ifdef WIN32
+#include <cassert>
+#include <WinSock2.h>
+void startWinsock()
+{
+    WSADATA data;
+    WORD version = MAKEWORD(2,2);
+    const int wsres = WSAStartup(version, &data);
+    assert(wsres == 0);
+}
+#endif
 
 int main()
 {
+    startWinsock();
+
     auto renderer = Renderer::create();
     std::array<Color, 64*32> screenbuffer;
 

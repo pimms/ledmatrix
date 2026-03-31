@@ -12,3 +12,6 @@ file(GLOB_RECURSE HDR src/**.h)
 
 add_executable(ledclient ${SRC} ${HDR})
 
+if (WIN32)
+    target_link_libraries(ledclient Ws2_32.lib)
+endif()

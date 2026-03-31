@@ -30,3 +30,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/rpi-rgb-led-matrix/include/)
 
 # Let the renderer-specific files find anything in src/
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+if (WIN32)
+    target_link_libraries(ledserver Ws2_32.lib)
+endif()

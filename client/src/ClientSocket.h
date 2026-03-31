@@ -1,7 +1,16 @@
 #pragma once
 
 #include <string>
+
+#ifdef WIN32
+#include <WinSock2.h>
+typedef int socklen_t;
+typedef int ssize_t;
+typedef SOCKET socket_t;
+#else
 #include <netinet/in.h>
+typedef int socket_t;
+#endif
 
 class ClientSocket
 {
@@ -16,6 +25,6 @@ public:
     void send(const void* buf, size_t len);
 
 private:
-    int _socket{};
+    socket_t _socket{};
     sockaddr_in _addr{};
 };

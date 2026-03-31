@@ -3,6 +3,18 @@
 #include <array>
 #include <thread>
 
+#ifdef WIN32
+#include <cassert>
+#include <WinSock2.h>
+void startWinsock()
+{
+    WSADATA data;
+    WORD version = MAKEWORD(2,2);
+    const int wsres = WSAStartup(version, &data);
+    assert(wsres == 0);
+}
+#endif
+
 struct Color
 {
     uint8_t r;
@@ -12,6 +24,8 @@ struct Color
 
 int main(int argc, const char **argv)
 {
+    startWinsock();
+
     if (argc != 2) {
         printf("Usage: %s <ipaddr>\n", argv[0]);
         return 1;
