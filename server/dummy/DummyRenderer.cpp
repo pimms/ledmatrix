@@ -27,7 +27,7 @@ void DummyRenderer::render(const std::array<Color, 64*32>& buffer)
             const int lum = (c->r + c->g + c->b);
             const int idx = lum / ((255*3) / (maplen-1));
             assert(idx < maplen);
-            printf("%c", map[idx]);
+            printf("%c%c", map[idx], map[idx]);
         }
         printf("\n");
     }
