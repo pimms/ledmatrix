@@ -13,6 +13,8 @@ void startWinsock()
     const int wsres = WSAStartup(version, &data);
     assert(wsres == 0);
 }
+#else
+void startWinsock() {}
 #endif
 
 struct Color
