@@ -39,16 +39,16 @@ int main(int argc, const char **argv)
     while (true) {
         printf("filling\n");
         for (int i=0; i<32*64; i++) {
-            buf[i] = Color { 20, 20, 20};
-            socket.send(buf.data(), sizeof(buf));
-            // std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            buf[i] = Color { 255, 255, 255};
+            // socket.send(buf.data(), sizeof(buf));
+            // std::this_thread::sleep_for(std::chrono::milliseconds(30));
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         printf("clearing\n");
         for (int i=0; i<32*64; i++) {
             buf[i] = Color { 0, 0, 0 };
             socket.send(buf.data(), sizeof(buf));
-            // std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            // std::this_thread::sleep_for(std::chrono::milliseconds(5));
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
