@@ -3,6 +3,10 @@
 #include <array>
 #include <thread>
 
+#include "Color.h"
+#include "Scenes/Scene.h"
+#include "Scenes/GameOfLife.h"
+
 #ifdef WIN32
 #include <cassert>
 #include <WinSock2.h>
@@ -17,13 +21,6 @@ void startWinsock()
 void startWinsock() {}
 #endif
 
-struct Color
-{
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
-};
-
 int main(int argc, const char **argv)
 {
     startWinsock();
@@ -33,24 +30,13 @@ int main(int argc, const char **argv)
         return 1;
     }
 
-    std::array<Color, 64*32> buf{};
-
     ClientSocket socket(argv[1]);
+    GameOfLife scene;
+
     while (true) {
-        printf("filling\n");
-        for (int i=0; i<32*64; i++) {
-            buf[i] = Color { 255, 255, 255};
-            // socket.send(buf.data(), sizeof(buf));
-            // std::this_thread::sleep_for(std::chrono::milliseconds(30));
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        printf("clearing\n");
-        for (int i=0; i<32*64; i++) {
-            buf[i] = Color { 0, 0, 0 };
-            socket.send(buf.data(), sizeof(buf));
-            // std::this_thread::sleep_for(std::chrono::milliseconds(5));
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        auto buffer = scene.render();
+        socket.send(buffer, sizeof(*buffer));
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 
     return 0;
