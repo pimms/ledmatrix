@@ -9,5 +9,5 @@ public:
 
 private:
     std::array<Color, 2048> _buffer;
-    bool _hasRendered = false;
+    bool _active = true;
 };

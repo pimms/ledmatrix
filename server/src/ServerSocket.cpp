@@ -4,7 +4,6 @@
 #include <cstring>
 
 #ifndef _WIN32
-#define IPPROTO_UDP 0
 #include <sys/socket.h>
 #include <unistd.h>
 #include <netinet/in.h>

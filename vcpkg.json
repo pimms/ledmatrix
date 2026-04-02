@@ -1,5 +1,6 @@
 {
   "dependencies": [
-    "cimg"
+    "cimg",
+    "libjpeg-turbo"
   ]
 }

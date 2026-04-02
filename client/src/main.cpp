@@ -6,6 +6,7 @@
 #include "Color.h"
 #include "Scenes/Scene.h"
 #include "Scenes/GameOfLife.h"
+#include "Scenes/ImageScene.h"
 
 #ifdef _WIN32
 #include <cassert>
@@ -32,13 +33,20 @@ int main(int argc, const char **argv)
 
     ClientSocket socket(argv[1]);
 
-    GameOfLife scene;
+    try {
+        ImageScene scene;
 
-    while (scene.active()) {
-        auto buffer = scene.render();
-        socket.send(buffer, sizeof(*buffer));
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        while (scene.active()) {
+            auto buffer = scene.render();
+            socket.send(buffer, sizeof(*buffer));
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        }
+        return 0;
+    } catch (const std::exception& e) {
+        fprintf(stderr, "exception raised: %s\n", e.what());
+        return 1;
+    } catch (...) {
+        fprintf(stderr, "unknown exception raised\n");
+        return 1;
     }
-
-    return 0;
 }

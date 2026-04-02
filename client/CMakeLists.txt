@@ -14,9 +14,10 @@ add_executable(ledclient ${SRC} ${HDR})
 
 if (WIN32)
     set(WINLIBS Ws2_32.lib)
-    # target_link_libraries(ledclient Ws2_32.lib)
 endif()
 
 find_package(cimg CONFIG REQUIRED)
-target_link_libraries(ledclient PRIVATE ${WINLIBS} CImg::CImg)
+find_package(jpeg REQUIRED)
+target_link_libraries(ledclient PRIVATE ${WINLIBS} CImg::CImg JPEG::JPEG)
+
 
