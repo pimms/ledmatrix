@@ -7,7 +7,7 @@
 #include "Scenes/Scene.h"
 #include "Scenes/GameOfLife.h"
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <cassert>
 #include <WinSock2.h>
 void startWinsock()
@@ -31,9 +31,10 @@ int main(int argc, const char **argv)
     }
 
     ClientSocket socket(argv[1]);
+
     GameOfLife scene;
 
-    while (true) {
+    while (scene.active()) {
         auto buffer = scene.render();
         socket.send(buffer, sizeof(*buffer));
         std::this_thread::sleep_for(std::chrono::milliseconds(50));

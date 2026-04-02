@@ -13,5 +13,10 @@ file(GLOB_RECURSE HDR src/**.h)
 add_executable(ledclient ${SRC} ${HDR})
 
 if (WIN32)
-    target_link_libraries(ledclient Ws2_32.lib)
+    set(WINLIBS Ws2_32.lib)
+    # target_link_libraries(ledclient Ws2_32.lib)
 endif()
+
+find_package(cimg CONFIG REQUIRED)
+target_link_libraries(ledclient PRIVATE ${WINLIBS} CImg::CImg)
+

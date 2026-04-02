@@ -68,3 +68,8 @@ const std::array<Color,2048>* GameOfLife::render()
 
     return &_sbuffer;
 }
+
+bool GameOfLife::active() const
+{
+    return true;
+}

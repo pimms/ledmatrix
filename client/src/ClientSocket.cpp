@@ -2,7 +2,7 @@
 
 #include <cassert>
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <WS2tcpip.h>
 #define close(_S) closesocket(_S)
 #else
@@ -20,7 +20,7 @@ ClientSocket::ClientSocket(const std::string& ipaddr)
     _addr.sin_family = AF_INET;
     _addr.sin_port = htons(6969);
 
-#ifdef WIN32
+#ifdef _WIN32
     inet_pton(AF_INET, ipaddr.c_str(), &_addr.sin_addr);
 #else
     _addr.sin_addr.s_addr = inet_addr(ipaddr.c_str());
@@ -40,7 +40,7 @@ void ClientSocket::send(const void* buf, size_t len)
     assert(buf);
     assert(len > 0 && len <= 8096);
 
-#ifdef WIN32
+#ifdef _WIN32
     const char* castedBuf = (const char*)buf;
 #else
     const void* castedBuf = buf;

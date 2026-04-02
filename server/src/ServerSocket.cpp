@@ -3,7 +3,7 @@
 #include <cassert>
 #include <cstring>
 
-#ifndef WIN32
+#ifndef _WIN32
 #define IPPROTO_UDP 0
 #include <sys/socket.h>
 #include <unistd.h>

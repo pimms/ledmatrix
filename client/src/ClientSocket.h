@@ -2,7 +2,7 @@
 
 #include <string>
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <WinSock2.h>
 typedef int socklen_t;
 typedef int ssize_t;

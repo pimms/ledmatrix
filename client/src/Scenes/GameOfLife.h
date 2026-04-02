@@ -12,6 +12,7 @@ public:
     GameOfLife& operator=(GameOfLife&&) = delete;
 
     const std::array<Color, 2048>* render() override;
+    bool active() const override;
 
 private:
     std::array<Color, 2048> _sbuffer;
