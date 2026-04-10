@@ -1,6 +1,7 @@
 #include "Renderer.h"
 #include <memory>
 #include <stdio.h>
+#include <string.h>
 #include <array>
 #include <cassert>
 

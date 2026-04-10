@@ -1,6 +1,7 @@
 build/
 .cache/
 .vs/
+.idea/
 out/
 compile_commands.json
 vcpkg_installed/

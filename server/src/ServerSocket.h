@@ -5,12 +5,14 @@
 #include <functional>
 
 #ifdef _WIN32
-#include <WinSock2.h>
-typedef int socklen_t;
-typedef int ssize_t;
-typedef SOCKET socket_t;
+    #include <WinSock2.h>
+    typedef int socklen_t;
+    typedef SOCKET socket_t;
+    #ifndef __MINGW32__
+        typedef int ssize_t;
+    #endif
 #else
-typedef int socket_t;
+    typedef int socket_t;
 #endif
 
 class ServerSocket 
