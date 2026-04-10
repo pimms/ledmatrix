@@ -34,7 +34,8 @@ int main(int argc, const char **argv)
     ClientSocket socket(argv[1]);
 
     try {
-        ImageScene scene;
+        // ImageScene scene("/Users/joakimstien/Desktop/pølse.jpg");
+        GameOfLife scene;
 
         while (scene.active()) {
             auto buffer = scene.render();
