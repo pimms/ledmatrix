@@ -3,6 +3,7 @@
 #include <condition_variable>
 #include <memory>
 #include <array>
+#include <thread>
 
 struct Color
 {
