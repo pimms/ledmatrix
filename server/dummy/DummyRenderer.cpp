@@ -7,6 +7,9 @@
 
 class DummyRenderer: public Renderer
 {
+public:
+    ~DummyRenderer() override;
+
 protected:
     void render(const std::array<Color, 64*32>* buffer) override;
 
@@ -20,10 +23,13 @@ std::unique_ptr<Renderer> Renderer::create()
     return std::make_unique<DummyRenderer>();
 }
 
+DummyRenderer::~DummyRenderer()
+{
+    printf("\033[0m");
+}
+
 void DummyRenderer::render(const std::array<Color, 64*32>* buffer)
 {
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    return;
     printf("\033[32A\033[J");
     for (int y=0; y<32; y++) {
         for (int x=0; x<64; x++) {
@@ -44,5 +50,5 @@ inline void DummyRenderer::printGrayscale(const Color* c) {
 }
 
 inline void DummyRenderer::printRgb(const Color* c) {
-    printf("\e[38;2;%d;%d;%dm██", c->r, c->g, c->b);
+    printf("\033[38;2;%d;%d;%dm██", c->r, c->g, c->b);
 }
