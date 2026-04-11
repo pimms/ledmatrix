@@ -50,5 +50,9 @@ inline void DummyRenderer::printGrayscale(const Color* c) {
 }
 
 inline void DummyRenderer::printRgb(const Color* c) {
+#ifdef _WIN32
     printf("\033[38;2;%d;%d;%dm██", c->r, c->g, c->b);
+#else
+    printf("\e[38;2;%d;%d;%dm██", c->r, c->g, c->b);
+#endif
 }
