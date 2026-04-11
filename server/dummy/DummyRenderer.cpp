@@ -33,7 +33,7 @@ void DummyRenderer::render(const std::array<Color, 64*32>* buffer)
     printf("\033[32A\033[J");
     for (int y=0; y<32; y++) {
         for (int x=0; x<64; x++) {
-            const Color* c = &(*buffer)[y*64 + x];
+            const Color* c = &((*buffer)[y*64 + x]);
             printRgb(c);
         }
         printf("\n");

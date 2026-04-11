@@ -41,7 +41,7 @@ void Renderer::renderLoop()
                 return;
             }
         }
-        const auto buffer = &_buffers[currentBufferNo];
+        const auto buffer = &_buffers[currentBufferNo % 2];
         render(buffer);
     }
 }
