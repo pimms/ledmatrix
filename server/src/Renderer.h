@@ -38,8 +38,6 @@ private:
     std::atomic_bool _runRenderLoop;
 
     std::atomic<uint64_t> _bufferNo = 0;
-    std::atomic_bool _consumerCopying = false;
-
     std::array<std::array<Color,64*32>, 2> _buffers;
 
     void renderLoop();

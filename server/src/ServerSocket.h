@@ -31,5 +31,5 @@ private:
     socket_t _socket;
     std::function<void(const uint8_t*,size_t)> _dataCallback;
 
-    void receiveLoop();
+    void receiveLoop() const;
 };

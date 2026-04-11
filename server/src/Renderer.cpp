@@ -31,15 +31,16 @@ void Renderer::bufferReady(const std::array<Color, 64 * 32> &buffer)
 void Renderer::renderLoop()
 {
     uint64_t currentBufferNo = 0;
-    while (_runRenderLoop) {
+    while (_runRenderLoop.load()) {
         {
             std::unique_lock<std::mutex> lock(_mutex);
-            _cv.wait(lock, [&]{ return _runRenderLoop && _bufferNo.load() > currentBufferNo; });
+            _cv.wait(lock, [&]{ return !_runRenderLoop.load() || _bufferNo.load() > currentBufferNo; });
 
-            currentBufferNo = _bufferNo.load();
-            if (!_runRenderLoop) {
+            if (!_runRenderLoop.load()) {
                 return;
             }
+
+            currentBufferNo = _bufferNo.load();
         }
         const auto buffer = &_buffers[currentBufferNo % 2];
         render(buffer);

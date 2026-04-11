@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "Renderer.h"
 #include "ServerSocket.h"
+#include "SignalHandler.h"
 #include <array>
 
 
@@ -18,8 +19,7 @@ void startWinsock()
 void startWinsock() {}
 #endif
 
-int main()
-{
+int main() {
     startWinsock();
 
     auto renderer = Renderer::create();
@@ -28,17 +28,11 @@ int main()
     ServerSocket socket(
         [&](auto buf, auto len) {
             if (len != 64*32*3) {
-                printf("discard\n");
                 return;
             }
-            for (int i=0; i<64*32; i++) {
-                screenbuffer[i] = *((Color*)&buf[i*3]);
-            }
+            memcpy(screenbuffer.data(), buf, len);
             renderer->bufferReady(screenbuffer);
         }
     );
-    printf("serverboi\n");
-
-    while (true) {};
-    return 0;
+    return SignalHandler::awaitTheEndOfTheWorld();
 }

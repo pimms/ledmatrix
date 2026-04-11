@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <cstring>
+#include <io.h>
 
 #ifndef _WIN32
 #include <sys/socket.h>
@@ -34,13 +35,20 @@ ServerSocket::ServerSocket(std::function<void(const uint8_t*,size_t)> dataCallba
 ServerSocket::~ServerSocket()
 {
     _active = false;
+
+#ifdef _WIN32
+    closesocket(_socket);
+#else
+    shutdown(_socket, SHUT_RDWR);
+    close(_socket);
+#endif
+
     if (_thread.joinable()) {
         _thread.join();
     }
 }
 
-void ServerSocket::receiveLoop()
-{
+void ServerSocket::receiveLoop() const {
     constexpr size_t BUFLEN = 8096;
     uint8_t buffer[BUFLEN];
     while (_active) {
@@ -53,11 +61,17 @@ void ServerSocket::receiveLoop()
         void* castedBuf = (void*)&buffer;
 #endif
 
-        const ssize_t len = recvfrom(_socket, castedBuf, BUFLEN, 0, (sockaddr*)&clientAddr, &clientLen);
+        const ssize_t len = recvfrom(
+            _socket,
+            castedBuf,
+            BUFLEN,
+            0,
+            reinterpret_cast<sockaddr *>(&clientAddr),
+            &clientLen);
         if (len < 0) {
-            printf("failed to receive data\n");
-        } else {
             _dataCallback(buffer, len);
+        } else if (_active) {
+            printf("failed to receive data\n");
         }
     }
 }
