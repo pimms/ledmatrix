@@ -7,7 +7,9 @@ class HZellerRenderer: public Renderer
 {
 public:
     HZellerRenderer();
-    void render(const std::array<Color,64*32>&) override;
+
+protected:
+    void render(const std::array<Color,64*32>*) override;
 
 private:
     std::unique_ptr<rgb_matrix::RGBMatrix> _canvas;

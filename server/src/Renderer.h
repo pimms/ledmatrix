@@ -1,6 +1,8 @@
 #pragma once
 
+#include <condition_variable>
 #include <memory>
+#include <array>
 
 struct Color
 {
@@ -16,12 +18,28 @@ class Renderer
 public:
     static std::unique_ptr<Renderer> create();
 
-    Renderer() {}
-    virtual ~Renderer() = default;
-
+    Renderer();
+    virtual ~Renderer();
     Renderer(const Renderer&) = delete;
     Renderer& operator=(const Renderer&) = delete;
     Renderer& operator=(Renderer&&) = delete;
 
-    virtual void render(const std::array<Color,64*32>&) = 0;
+    void bufferReady(const std::array<Color,64*32>&);
+
+protected:
+    virtual void render(const std::array<Color,64*32>*) = 0;
+
+private:
+    std::condition_variable _cv;
+    std::mutex _mutex;
+
+    std::thread _renderThread;
+    std::atomic_bool _runRenderLoop;
+
+    std::atomic<uint64_t> _bufferNo = 0;
+    std::atomic_bool _consumerCopying = false;
+
+    std::array<std::array<Color,64*32>, 2> _buffers;
+
+    void renderLoop();
 };

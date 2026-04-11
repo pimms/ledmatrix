@@ -7,12 +7,12 @@
 
 class DummyRenderer: public Renderer
 {
-public:
-    void render(const std::array<Color, 64*32>& buffer) override;
+protected:
+    void render(const std::array<Color, 64*32>* buffer) override;
 
 private:
-    inline void printGrayscale(const Color* color) const;
-    inline void printRgb(const Color* color) const;
+    static inline void printGrayscale(const Color* color);
+    static inline void printRgb(const Color* color);
 };
 
 std::unique_ptr<Renderer> Renderer::create()
@@ -20,20 +20,21 @@ std::unique_ptr<Renderer> Renderer::create()
     return std::make_unique<DummyRenderer>();
 }
 
-void DummyRenderer::render(const std::array<Color, 64*32>& buffer)
+void DummyRenderer::render(const std::array<Color, 64*32>* buffer)
 {
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    return;
     printf("\033[32A\033[J");
     for (int y=0; y<32; y++) {
         for (int x=0; x<64; x++) {
-            const Color* c = &buffer[y*64 + x];
+            const Color* c = &(*buffer)[y*64 + x];
             printRgb(c);
         }
         printf("\n");
     }
 }
 
-inline void DummyRenderer::printGrayscale(const Color* c) const
-{
+inline void DummyRenderer::printGrayscale(const Color* c) {
     static const char *map = " .-=#%$";
     static const int maplen = strlen(map);
     const int lum = (c->r + c->g + c->b);
@@ -42,7 +43,6 @@ inline void DummyRenderer::printGrayscale(const Color* c) const
     printf("%c%c", map[idx], map[idx]);
 }
 
-inline void DummyRenderer::printRgb(const Color* c) const
-{
+inline void DummyRenderer::printRgb(const Color* c) {
     printf("\e[38;2;%d;%d;%dm██", c->r, c->g, c->b);
 }

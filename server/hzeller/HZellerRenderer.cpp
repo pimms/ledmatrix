@@ -24,7 +24,7 @@ HZellerRenderer::HZellerRenderer()
     }
 }
 
-void HZellerRenderer::render(const std::array<Color,64*32> &buffer)
+void HZellerRenderer::render(const std::array<Color,64*32>* buffer)
 {
     for (int y=0; y<32; y++) {
         for (int x=0; x<64; x++) {

@@ -34,7 +34,7 @@ int main()
             for (int i=0; i<64*32; i++) {
                 screenbuffer[i] = *((Color*)&buf[i*3]);
             }
-            renderer->render(screenbuffer);
+            renderer->bufferReady(screenbuffer);
         }
     );
     printf("serverboi\n");
