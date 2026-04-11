@@ -2,9 +2,10 @@
 
 #include <cassert>
 #include <cstring>
-#include <io.h>
 
-#ifndef _WIN32
+#ifdef _WIN32
+#include <io.h>
+#else
 #include <sys/socket.h>
 #include <unistd.h>
 #include <netinet/in.h>
